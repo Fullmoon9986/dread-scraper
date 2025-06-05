@@ -84,9 +84,9 @@ def get_post_links_through_search(search_term, start_page):
 
         current_page = current_page + 1
 
-        if current_page == 499:
+        if current_page > 500:
             break
-        print('{} - Finished page {}, continuing to page {}'.format(now.strftime("%H:%M:%S"), current_page, current_page + 1))
+        print('{} - Finished page {}, continuing to page {}'.format(now.strftime("%H:%M:%S"), current_page - 1, current_page))
         time.sleep(random.uniform(9,15))
 
     return url_list
@@ -143,9 +143,9 @@ def get_post_links_through_main(start_page):
 
      current_page = current_page + 1
 
-     if current_page == 499:
+     if current_page > 500:
          break
-     print('{} - Finished page {}, continuing to page {}'.format(now.strftime("%H:%M:%S"), current_page, current_page + 1))
+     print('{} - Finished page {}, continuing to page {}'.format(now.strftime("%H:%M:%S"), current_page - 1, current_page))
      time.sleep(random.uniform(9,15))
 
     return url_list
@@ -176,9 +176,9 @@ def get_source_pages_from_list(save_path, url_list_filepath):
         else:
         # Else, we create the folder and save the .html
             os.mkdir(save_path + post_folder)
-            f = codecs.open(save_path + post_folder + '/post.html', 'w', 'utf-8')
-            h = driver.page_source
-            f.write(h)
+            with codecs.open(save_path + post_folder + '/post.html', 'w', 'utf-8') as f:
+                h = driver.page_source
+                f.write(h)
             print('Source saved!')
 
 def navigate_to_main():
